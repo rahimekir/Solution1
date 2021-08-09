@@ -37,6 +37,46 @@ namespace DataAccess.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Entities.Concrete.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Entities.Concrete.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems");
+                });
+
             modelBuilder.Entity("Entities.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -85,6 +125,25 @@ namespace DataAccess.Migrations
                     b.ToTable("ProductCategory");
                 });
 
+            modelBuilder.Entity("Entities.Concrete.CartItem", b =>
+                {
+                    b.HasOne("Entities.Concrete.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Entities.ProductCategory", b =>
                 {
                     b.HasOne("Entities.Category", "Category")
@@ -107,6 +166,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Category", b =>
                 {
                     b.Navigation("ProductCategories");
+                });
+
+            modelBuilder.Entity("Entities.Concrete.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("Entities.Product", b =>

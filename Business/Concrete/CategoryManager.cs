@@ -16,6 +16,9 @@ namespace Business.Concrete
         {
             _categoryDal = categoryDal;
         }
+
+        public string ErrorMessage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public void Add(Category entity)
         {
             _categoryDal.Add(entity);
@@ -26,6 +29,12 @@ namespace Business.Concrete
             _categoryDal.Delete(entity);
         }
 
+        public void DeleteFromCategory(int productId, int categoryId)
+        {
+            _categoryDal.DeleteFromCategory(productId, categoryId);
+
+                }
+
         public List<Category> GetAll()
         {
             return _categoryDal.GetAll();
@@ -33,10 +42,20 @@ namespace Business.Concrete
 
         public Category GetById(int id)
         {
-            throw new NotImplementedException();
+            return _categoryDal.GetById(id);
+        }
+
+        public Category GetByIdWithProducts(int categoryId)
+        {
+            return _categoryDal.GetByIdWithProducts(categoryId);
         }
 
         public void Update(Category entity)
+        {
+            _categoryDal.Update(entity);
+        }
+
+        public bool Validation(Category entity)
         {
             throw new NotImplementedException();
         }

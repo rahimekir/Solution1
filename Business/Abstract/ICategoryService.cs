@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface ICategoryService
+    public interface ICategoryService:IValidator<Category>
     {
+
+        Category GetByIdWithProducts(int categoryId);
+        void DeleteFromCategory(int productId, int categoryId);
         Category GetById(int id);
 
         List<Category> GetAll();

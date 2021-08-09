@@ -10,5 +10,9 @@ namespace DataAccess.Abstract
 {
    public interface ICategoryDal:IEntityRepository<Category>
     {
+
+        Category GetByIdWithProducts(int categoryId);
+
+        void DeleteFromCategory(int productId, int categoryId);
     }
 }

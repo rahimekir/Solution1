@@ -1,10 +1,17 @@
-﻿<!DOCTYPE html>
+﻿
+@using Newtonsoft.Json;
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    @RenderSection("Css", false)
+
     <link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
     <title>Shopapp</title>
 </head>
 <body>
@@ -13,6 +20,18 @@
 
     <main class="my-3">
         <div class="container">
+            @if (TempData["message"] != null)
+            {
+                var message = JsonConvert.DeserializeObject<AlertMessage>(TempData["message"] as String);
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-@message.AlertType">
+            @message.Message
+        </div>
+    </div>
+</div>
+}
             @RenderBody()
         </div>
     </main>
@@ -21,8 +40,9 @@
         Shop App
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+   <link href="~/css/site.css" rel="stylesheet" />
     @RenderSection("Scripts", false)
 </body>
 </html>

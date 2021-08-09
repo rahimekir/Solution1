@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace DataAccess.Concrete.EntityFramework.Context
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=EtProjeDb1;Integrated Security=true");
